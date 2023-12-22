@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://blnj220jjqi8b"]
+
+[ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_5xsg0"]
+
+[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
+script = ExtResource("1_5xsg0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="AttackDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="ChaseDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseDetector"]
+
+[node name="AttackBox" type="Area2D" parent="." groups=["EnemyAttack"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
+
+[node name="HurtBox" type="Area2D" parent="." groups=["EnemyHurt"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+
+[connection signal="body_entered" from="AttackDetector" to="." method="_on_attack_detector_body_entered"]
+[connection signal="body_exited" from="AttackDetector" to="." method="_on_attack_detector_body_exited"]
+[connection signal="body_entered" from="ChaseDetector" to="." method="_on_chase_detector_body_entered"]
+[connection signal="body_exited" from="ChaseDetector" to="." method="_on_chase_detector_body_exited"]
+[connection signal="area_entered" from="AttackBox" to="." method="_on_attack_box_area_entered"]
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]

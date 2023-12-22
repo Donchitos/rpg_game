@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="GeneralStats" load_steps=2 format=3 uid="uid://dxgxubvh63l7g"]
+
+[ext_resource type="Script" path="res://Skills and data/generalstats.gd" id="1_gjxca"]
+
+[resource]
+script = ExtResource("1_gjxca")
+Max_Health = 100
+Max_Stamina = 100
+Max_Mana = 100
+Health = 100
+Stamina = 100
+Mana = 100
+Melee_Level = 1
+Attack = 10
+Strength = 5
+Defense = 1
+Ranged_Level = 1
+Ranged_Proficiancy = 1
+Magic_Level = 1
+Magic_Knowledge = 1
+Magic_Proficiency = 1
+Magic_Defense = 1
+Agility_Level = 1
+Agility_Evasion = 1
+Agility_Critical_Chance = 1
+Overall_Level = 1
+Health_Regen_Rate = 0.5
+Stamina_Regen_Rate = 5.0
+Mana_Regen_Rate = 1.0
+Knockback_Strength = 20
+Speed = 50.0
+Acceleration = 50.0
+Friction = 0.15

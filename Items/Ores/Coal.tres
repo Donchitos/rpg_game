@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Ore" load_steps=3 format=3 uid="uid://cwovtyv1dokjo"]
+
+[ext_resource type="Script" path="res://Items/Ores/Ore.gd" id="1_vfu3v"]
+[ext_resource type="Texture2D" uid="uid://d5jhor3eitgb" path="res://Item art/random stuff/Singles/101_Ore_Coal.png" id="2_p5eh1"]
+
+[resource]
+script = ExtResource("1_vfu3v")
+tier = 3
+requiredSmithing = 15
+name = "Coal"
+description = "Unrefined coal that can be used with other elements"
+texture = ExtResource("2_p5eh1")
+stackable = true
+value = 13
+weight = 15

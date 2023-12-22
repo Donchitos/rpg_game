@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://botpr6f1uidot"]
+
+[ext_resource type="Texture2D" uid="uid://ddsgbakbpqre3" path="res://MonedaP.png" id="1_34qlu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a24te"]
+atlas = ExtResource("1_34qlu")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yuras"]
+atlas = ExtResource("1_34qlu")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pydmn"]
+atlas = ExtResource("1_34qlu")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7fjm"]
+atlas = ExtResource("1_34qlu")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rl1k0"]
+atlas = ExtResource("1_34qlu")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8b33a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a24te")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yuras")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pydmn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7fjm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rl1k0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="coins" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8b33a")
+autoplay = "default"
+frame_progress = 0.908584

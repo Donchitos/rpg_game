@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Potions" load_steps=3 format=3 uid="uid://b4mphhir6ucr1"]
+
+[ext_resource type="Script" path="res://Items/Potions/Potions.gd" id="1_lj1g8"]
+[ext_resource type="Texture2D" uid="uid://s30h6dnk0e70" path="res://Item art/Potions/Singles/103_Potion_Health_A.png" id="2_blp81"]
+
+[resource]
+script = ExtResource("1_lj1g8")
+effect = 0
+Potentness = 10
+name = "Basic Healing Potion"
+description = "Restores 10 health"
+texture = ExtResource("2_blp81")
+stackable = true
+value = 10
+weight = 1
+consumable = true

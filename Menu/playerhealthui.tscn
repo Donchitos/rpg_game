@@ -1,0 +1,81 @@
+[gd_scene load_steps=7 format=3 uid="uid://bhmn2jgjax1e5"]
+
+[ext_resource type="Script" path="res://Menu/playerhealthui.gd" id="1_sp3iv"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_3bdd4"]
+
+[sub_resource type="Gradient" id="Gradient_dvinq"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bmpsf"]
+gradient = SubResource("Gradient_dvinq")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_pa78u"]
+specular_texture = SubResource("GradientTexture2D_bmpsf")
+specular_color = Color(1, 0, 0.0784314, 1)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_8meno"]
+
+[node name="PlayerHealthUI" type="CanvasLayer"]
+script = ExtResource("1_sp3iv")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+layout_direction = 2
+offset_left = 19.0
+offset_top = 33.0
+offset_right = 279.0
+offset_bottom = 61.0
+value = 100.0
+nine_patch_stretch = true
+texture_under = SubResource("CanvasTexture_3bdd4")
+texture_progress = SubResource("CanvasTexture_pa78u")
+tint_under = Color(0.529412, 0.101961, 0.137255, 0.537255)
+tint_progress = Color(1, 0, 0.0666667, 1)
+
+[node name="StaminaBar" type="TextureProgressBar" parent="."]
+layout_direction = 2
+offset_left = 19.0
+offset_top = 68.0
+offset_right = 279.0
+offset_bottom = 96.0
+value = 100.0
+nine_patch_stretch = true
+texture_under = SubResource("CanvasTexture_3bdd4")
+texture_progress = SubResource("CanvasTexture_pa78u")
+tint_under = Color(0.313726, 0.501961, 0.0862745, 0.219608)
+tint_progress = Color(0.0941176, 0.431373, 0.203922, 1)
+
+[node name="MagicBar" type="TextureProgressBar" parent="."]
+layout_direction = 2
+offset_left = 19.0
+offset_top = 103.0
+offset_right = 279.0
+offset_bottom = 131.0
+value = 100.0
+nine_patch_stretch = true
+texture_under = SubResource("CanvasTexture_3bdd4")
+texture_progress = SubResource("CanvasTexture_pa78u")
+tint_under = Color(0.0745098, 0.286275, 0.537255, 0.537255)
+tint_progress = Color(0.113725, 0.356863, 0.631373, 1)
+
+[node name="XpBar" type="TextureProgressBar" parent="."]
+visible = false
+layout_direction = 2
+offset_left = 507.0
+offset_top = 30.0
+offset_right = 714.0
+offset_bottom = 180.0
+value = 1.0
+fill_mode = 4
+nine_patch_stretch = true
+texture_under = SubResource("CanvasTexture_8meno")
+texture_progress = SubResource("CanvasTexture_pa78u")
+tint_under = Color(0.0313726, 0.0705882, 0.101961, 0.141176)
+tint_progress = Color(0.25098, 0.764706, 0.992157, 1)
+
+[connection signal="value_changed" from="HealthBar" to="." method="_on_texture_progress_bar_value_changed"]
+[connection signal="value_changed" from="HealthBar" to="." method="_on_health_bar_value_changed"]
+[connection signal="value_changed" from="StaminaBar" to="." method="_on_texture_progress_bar_value_changed"]
+[connection signal="value_changed" from="StaminaBar" to="." method="_on_stamina_bar_value_changed"]
+[connection signal="value_changed" from="MagicBar" to="." method="_on_texture_progress_bar_value_changed"]
+[connection signal="value_changed" from="XpBar" to="." method="_on_texture_progress_bar_value_changed"]
+[connection signal="value_changed" from="XpBar" to="." method="_on_health_bar_value_changed"]

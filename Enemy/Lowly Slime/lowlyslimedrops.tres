@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="DropTable" load_steps=7 format=3 uid="uid://b8fdv70edgjby"]
+
+[ext_resource type="Resource" uid="uid://c0lmy73b1i1y7" path="res://Items/Ingredients/Slime.tres" id="1_xtkog"]
+[ext_resource type="Script" path="res://Drops and Loot/DropTableItem.gd" id="2_1eb4s"]
+[ext_resource type="Resource" uid="uid://dc7h25xq3vyg" path="res://Items/Coin.tres" id="3_kbefn"]
+[ext_resource type="Script" path="res://Drops and Loot/DropTable.gd" id="4_c27pa"]
+
+[sub_resource type="Resource" id="Resource_kn42p"]
+script = ExtResource("2_1eb4s")
+item_data = ExtResource("1_xtkog")
+chance = 1.0
+min_quantity = 1
+max_quantity = 1
+
+[sub_resource type="Resource" id="Resource_pqjav"]
+script = ExtResource("2_1eb4s")
+item_data = ExtResource("3_kbefn")
+chance = 1.0
+min_quantity = 1
+max_quantity = 5
+
+[resource]
+script = ExtResource("4_c27pa")
+drop_table_items = Array[ExtResource("2_1eb4s")]([SubResource("Resource_kn42p"), SubResource("Resource_pqjav")])

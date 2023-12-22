@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Ore" load_steps=3 format=3 uid="uid://1iofykm4v686"]
+
+[ext_resource type="Script" path="res://Items/Ores/Ore.gd" id="1_y5fdw"]
+[ext_resource type="Texture2D" uid="uid://cg81akntax325" path="res://Item art/random stuff/Singles/81_Ore_Silver.png" id="2_5g1yr"]
+
+[resource]
+script = ExtResource("1_y5fdw")
+tier = 1
+requiredSmithing = 10
+name = "Silver Ore"
+description = "Unrefined silver ore"
+skin = ExtResource("2_5g1yr")
+stackable = true
+value = 15
+weight = 12

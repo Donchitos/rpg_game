@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Ore" load_steps=3 format=3 uid="uid://b1q76jycfeifc"]
+
+[ext_resource type="Script" path="res://Items/Ores/Ore.gd" id="1_q16e2"]
+[ext_resource type="Texture2D" uid="uid://drw2x73dtnlw5" path="res://Item art/random stuff/Singles/121_Ore_Gold.png" id="2_vv222"]
+
+[resource]
+script = ExtResource("1_q16e2")
+tier = 2
+requiredSmithing = 20
+name = "Gold Ore"
+description = "Unrefined gold ore"
+skin = ExtResource("2_vv222")
+stackable = true
+value = 35
+weight = 13

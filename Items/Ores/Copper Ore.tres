@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Ore" load_steps=3 format=3 uid="uid://dnx6b0ht2gx3o"]
+
+[ext_resource type="Script" path="res://Items/Ores/Ore.gd" id="1_j3m4x"]
+[ext_resource type="Texture2D" uid="uid://ct6kx3pj5c87b" path="res://Item art/random stuff/Singles/41_Ore_Copper.png" id="2_2syxf"]
+
+[resource]
+script = ExtResource("1_j3m4x")
+tier = 0
+requiredSmithing = 5
+name = "Copper ore"
+description = "A decent amount of Copper Ore"
+skin = ExtResource("2_2syxf")
+stackable = true
+value = 3
+weight = 12

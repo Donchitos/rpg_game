@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Ore" load_steps=3 format=3 uid="uid://dey00susqf5jr"]
+
+[ext_resource type="Script" path="res://Items/Ores/Ore.gd" id="1_ur7ta"]
+[ext_resource type="Texture2D" uid="uid://denlh7yqhgme1" path="res://Item art/random stuff/Singles/181_Ore_Adamantine.png" id="2_lib7v"]
+
+[resource]
+script = ExtResource("1_ur7ta")
+tier = 7
+requiredSmithing = 60
+name = "Adamantine ore"
+description = "unrefined adamantite ore"
+skin = ExtResource("2_lib7v")
+stackable = true
+value = 50
+weight = 30

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dc7h25xq3vyg"]
+
+[ext_resource type="Script" path="res://Items/ItemData.gd" id="1_t00l8"]
+[ext_resource type="Texture2D" uid="uid://bed8bqmt6hw4h" path="res://Item art/coin.png" id="2_vejj0"]
+
+[resource]
+script = ExtResource("1_t00l8")
+name = "Coin"
+description = "The empires currency system."
+texture = ExtResource("2_vejj0")
+stackable = true
+value = 0
+weight = 0
+consumable = false

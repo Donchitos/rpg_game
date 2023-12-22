@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Ore" load_steps=3 format=3 uid="uid://b0irxowm1iy8e"]
+
+[ext_resource type="Script" path="res://Items/Ores/Ore.gd" id="1_ijg0p"]
+[ext_resource type="Texture2D" uid="uid://j87o01poah02" path="res://Item art/random stuff/Singles/161_Ore_Cobalt.png" id="2_g1llf"]
+
+[resource]
+script = ExtResource("1_ijg0p")
+tier = 6
+requiredSmithing = 50
+name = "Cobalt"
+description = "Unrefined cobalt ore"
+skin = ExtResource("2_g1llf")
+stackable = true
+value = 60
+weight = 40

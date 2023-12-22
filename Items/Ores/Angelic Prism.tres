@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Ore" load_steps=3 format=3 uid="uid://bfwq7ilma73bl"]
+
+[ext_resource type="Script" path="res://Items/Ores/Ore.gd" id="1_vpncf"]
+[ext_resource type="Texture2D" uid="uid://ccmow3qf3ydjq" path="res://Item art/random stuff/Singles/221_Ore_Angelic.png" id="2_3nwab"]
+
+[resource]
+script = ExtResource("1_vpncf")
+tier = 8
+requiredSmithing = 70
+name = "Blessed Prism"
+description = "An angelic stone not of this world"
+skin = ExtResource("2_3nwab")
+stackable = true
+value = 160
+weight = 10

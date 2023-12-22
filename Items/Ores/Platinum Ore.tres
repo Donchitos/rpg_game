@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Ore" load_steps=3 format=3 uid="uid://b5bltkvx3lixf"]
+
+[ext_resource type="Script" path="res://Items/Ores/Ore.gd" id="1_ruf6d"]
+[ext_resource type="Texture2D" uid="uid://6dnqxnxmkdfw" path="res://Item art/random stuff/Singles/141_Ore_Platinum.png" id="2_ifop8"]
+
+[resource]
+script = ExtResource("1_ruf6d")
+tier = 5
+requiredSmithing = 35
+name = "Platinum Ore"
+description = "Unrefined platinum ore"
+skin = ExtResource("2_ifop8")
+stackable = true
+value = 30
+weight = 30

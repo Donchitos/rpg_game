@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=3 format=3 uid="uid://btets2vs35ddq"]
+
+[ext_resource type="Script" path="res://Items/Equip Items/Weapons/Weapons.gd" id="1_co4kx"]
+[ext_resource type="Texture2D" uid="uid://8vg8af6lcuc0" path="res://Item art/Armory/Singles/Weapon_Singles/Wooden/Wooden_Weapon3.png" id="2_4f513"]
+
+[resource]
+script = ExtResource("1_co4kx")
+WeaponType = 0
+Attack = 5
+Strength = 3
+Ranged_Proficiancy = 0
+Magic_Proficiency = 0
+Attack_Speed = 1.0
+equip_type = 0
+name = "Wooden Training Sword"
+description = "The perfect learning weapon for an aspiring swordsman"
+texture = ExtResource("2_4f513")
+stackable = true
+value = 6
+weight = 10
+consumable = false

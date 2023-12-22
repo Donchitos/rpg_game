@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Ore" load_steps=3 format=3 uid="uid://bbo7bakue6wsa"]
+
+[ext_resource type="Script" path="res://Items/Ores/Ore.gd" id="1_5anb8"]
+[ext_resource type="Texture2D" uid="uid://bor3v08m8va1o" path="res://Item art/random stuff/Singles/61_Ore_Iron.png" id="2_shtrb"]
+
+[resource]
+script = ExtResource("1_5anb8")
+tier = 1
+requiredSmithing = 10
+name = "Iron Ore"
+description = "Unrefined iron ore"
+skin = ExtResource("2_shtrb")
+stackable = true
+value = 10
+weight = 20

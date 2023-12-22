@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://ck6an46jqoexn"]
+
+[ext_resource type="Script" path="res://world.gd" id="1_vgck8"]
+[ext_resource type="PackedScene" uid="uid://d3mu7c5po244t" path="res://Player/Player.tscn" id="2_crlxm"]
+[ext_resource type="Resource" uid="uid://co4ac8sdynbcr" path="res://Inventory/test_inv.tres" id="3_il4y3"]
+[ext_resource type="Texture2D" uid="uid://datwdib0upsth" path="res://icon.svg" id="3_ob1dh"]
+[ext_resource type="PackedScene" uid="uid://bhmn2jgjax1e5" path="res://Menu/playerhealthui.tscn" id="4_icei3"]
+[ext_resource type="PackedScene" uid="uid://dnwkyc1xiejio" path="res://Inventory/inventory.tscn" id="5_iaaif"]
+[ext_resource type="Script" path="res://Inventory/Inventory_Interface.gd" id="7_0b3tf"]
+[ext_resource type="PackedScene" uid="uid://ccr32kuvuwuwv" path="res://Enemy/slime.tscn" id="7_utv71"]
+
+[node name="world" type="Node2D"]
+z_as_relative = false
+script = ExtResource("1_vgck8")
+
+[node name="Player" parent="." instance=ExtResource("2_crlxm")]
+position = Vector2(361, 125)
+inventory_data = ExtResource("3_il4y3")
+
+[node name="Slime" parent="." instance=ExtResource("7_utv71")]
+position = Vector2(85, 155)
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(515, 58)
+texture = ExtResource("3_ob1dh")
+
+[node name="PlayerHealthUI" parent="." instance=ExtResource("4_icei3")]
+
+[node name="Slime2" parent="." instance=ExtResource("7_utv71")]
+
+[node name="InventoryUI" type="CanvasLayer" parent="."]
+
+[node name="InventoryInterface" type="Control" parent="InventoryUI"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("7_0b3tf")
+
+[node name="PlayerInventory" parent="InventoryUI/InventoryInterface" instance=ExtResource("5_iaaif")]
+layout_mode = 0
+offset_left = 10.0
+offset_top = -10.0
+offset_right = 50.0
+offset_bottom = 30.0

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://vgr1b1uj5vc8"]
+
+[ext_resource type="Script" path="res://Items/ItemData.gd" id="1_kayrx"]
+[ext_resource type="Texture2D" uid="uid://c0ggs8cl58q7f" path="res://Item art/random stuff/Singles/02_Throwable_Butter_Knife.png" id="2_ny1hp"]
+
+[resource]
+script = ExtResource("1_kayrx")
+name = "Knife"
+description = "cunt
+"
+texture = ExtResource("2_ny1hp")
+stackable = true
+value = 3
+weight = 2
+consumable = false

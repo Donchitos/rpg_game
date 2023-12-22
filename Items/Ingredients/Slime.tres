@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Ingredients" load_steps=3 format=3 uid="uid://c0lmy73b1i1y7"]
+
+[ext_resource type="Script" path="res://Items/Ingredients/Ingredients.gd" id="1_0lhps"]
+[ext_resource type="Texture2D" uid="uid://brgwinn844vrx" path="res://Item art/Slime.png" id="2_jl3tn"]
+
+[resource]
+script = ExtResource("1_0lhps")
+Properties = []
+name = "Slime"
+description = "A very sticky substance"
+texture = ExtResource("2_jl3tn")
+stackable = true
+value = 3
+weight = 1
+consumable = true

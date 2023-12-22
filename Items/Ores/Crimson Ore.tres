@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Ore" load_steps=3 format=3 uid="uid://o2ly1inhh3ap"]
+
+[ext_resource type="Script" path="res://Items/Ores/Ore.gd" id="1_0ihr8"]
+[ext_resource type="Texture2D" uid="uid://cp7bt1jueahgk" path="res://Item art/random stuff/Singles/201_Ore_Crimson.png" id="2_1drjy"]
+
+[resource]
+script = ExtResource("1_0ihr8")
+tier = 7
+requiredSmithing = 60
+name = "Crimson"
+description = "Unrefined crimson ore"
+skin = ExtResource("2_1drjy")
+stackable = true
+value = 90
+weight = 30

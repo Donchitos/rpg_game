@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="InventoryData" load_steps=11 format=3 uid="uid://co4ac8sdynbcr"]
+
+[ext_resource type="Script" path="res://Inventory/InventoryData.gd" id="1_dlpoy"]
+[ext_resource type="Resource" uid="uid://cwovtyv1dokjo" path="res://Items/Ores/Coal.tres" id="2_6i7t0"]
+[ext_resource type="Script" path="res://Inventory/slotdata.gd" id="2_i2kkl"]
+[ext_resource type="Resource" uid="uid://vgr1b1uj5vc8" path="res://Items/test item.tres" id="4_1m8bn"]
+[ext_resource type="Resource" uid="uid://btets2vs35ddq" path="res://Items/Equip Items/Weapons/Wooden/Wooden Sword.tres" id="5_s42ce"]
+
+[sub_resource type="Resource" id="Resource_cjeot"]
+script = ExtResource("2_i2kkl")
+item_data = ExtResource("4_1m8bn")
+quantity = 98
+
+[sub_resource type="Resource" id="Resource_cyv2c"]
+script = ExtResource("2_i2kkl")
+item_data = ExtResource("4_1m8bn")
+quantity = 4
+
+[sub_resource type="Resource" id="Resource_6634q"]
+script = ExtResource("2_i2kkl")
+item_data = ExtResource("4_1m8bn")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_w1qom"]
+script = ExtResource("2_i2kkl")
+item_data = ExtResource("2_6i7t0")
+quantity = 3
+
+[sub_resource type="Resource" id="Resource_mt21d"]
+script = ExtResource("2_i2kkl")
+item_data = ExtResource("5_s42ce")
+quantity = 1
+
+[resource]
+script = ExtResource("1_dlpoy")
+slot_datas = Array[ExtResource("2_i2kkl")]([SubResource("Resource_cjeot"), SubResource("Resource_cyv2c"), SubResource("Resource_6634q"), SubResource("Resource_w1qom"), SubResource("Resource_mt21d"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
