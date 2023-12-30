@@ -1,20 +1,26 @@
 extends Node2D
 
+
+
+@onready var player_ui = $PlayerUIOverlay/PlayerUI
 @onready var player = $Player
-@onready var inventory_interface = $InventoryUI/InventoryInterface
 var enemy = Enemy
+
+@onready var inventory_interface = $PlayerUIOverlay/PlayerUI/TabContainer/Inventory/InventoryInterface
 
 func _ready() -> void:
 	inventory_interface.set_player_inventory_data(player.inventory_data)
 	inventory_interface.set_equip_inventory_data(player.equip_inventory_data)
-	player.toggle_inventory.connect(toggle_inventory_interface)
+	
+	
+	
+	
+	
 	for child in get_children():
 		if child is Enemy:  # Check if the node is an instance of the Enemy class
 			child.enemy_death.connect(_on_enemy_death)
 
-func toggle_inventory_interface() -> void:
-	inventory_interface.visible = not inventory_interface.visible
-	
+
 
 func _on_enemy_death(enemy, drop_table: DropTable) -> void:
 	var dropped_items = drop_table.roll_for_drops()

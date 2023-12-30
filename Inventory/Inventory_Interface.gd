@@ -1,8 +1,14 @@
 extends Control
 
-@onready var player_inventory = $PlayerInventory
 @onready var grabbed_slot = $GrabbedSlot
-@onready var equip_inventory = $EquipInventory
+
+
+
+@onready var equip_inventory = $MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/EquipInventory
+@onready var player_inventory = $MarginContainer/HBoxContainer/PanelContainer2/Inventories/General/MarginContainer/PlayerInventory
+
+
+
 
 
 func _physics_process(delta:float)-> void:

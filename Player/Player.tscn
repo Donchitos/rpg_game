@@ -1,14 +1,15 @@
-[gd_scene load_steps=118 format=3 uid="uid://d3mu7c5po244t"]
+[gd_scene load_steps=119 format=3 uid="uid://d3mu7c5po244t"]
 
 [ext_resource type="Resource" uid="uid://co4ac8sdynbcr" path="res://Inventory/test_inv.tres" id="1_d7im4"]
-[ext_resource type="Resource" uid="uid://dxgxubvh63l7g" path="res://Player/playergeneralstats.tres" id="1_twycp"]
+[ext_resource type="Resource" uid="uid://1p43qmou1cb3" path="res://Player/PlayerStatstest.tres" id="1_xv8ar"]
 [ext_resource type="Texture2D" uid="uid://bmnvya2vebct8" path="res://player sprites/char_a_p1_0bas_humn_v01.png" id="2_2lf1w"]
 [ext_resource type="Script" path="res://Inventory/inventory_data_equip.gd" id="2_jhxhr"]
 [ext_resource type="Texture2D" uid="uid://cvxnf13n7geit" path="res://player sprites/char_a_p2_0bas_humn_v01.png" id="2_wx1fi"]
-[ext_resource type="Texture2D" uid="uid://pfdbxnwqft07" path="res://Item art/Armory/Singles/Weapon_Singles/Crimson/Crimson_Weapon2.png" id="4_gra2o"]
 [ext_resource type="Texture2D" uid="uid://bc7mr3bngedl6" path="res://Item art/Armory/Singles/Weapon_Singles/Crimson/Crimson_Shield2.png" id="5_px6n8"]
 [ext_resource type="Texture2D" uid="uid://cbkwbue00i5xt" path="res://player sprites/char_a_pONE1_0bas_humn_v01.png" id="5_yrj7y"]
+[ext_resource type="Script" path="res://Player/Equip Weapon.gd" id="6_1krch"]
 [ext_resource type="Texture2D" uid="uid://dnlvxfkxddrwn" path="res://player sprites/char_a_pONE3_0bas_humn_v01.png" id="6_wgaeo"]
+[ext_resource type="Texture2D" uid="uid://dsbgrdjnfeqdf" path="res://fx/sword & shield effect sprites.png" id="7_6j073"]
 
 [sub_resource type="GDScript" id="GDScript_qmpwp"]
 script/source = "extends CharacterBody2D
@@ -19,12 +20,16 @@ class_name Player
 @onready var animTree = $AnimationTree
 @onready var AtkTimer = $AttackTimer
 # Preload the GeneralStats resource
-@export var player_stats: GeneralStats
-var MeleeCombat = preload(\"res://MeleeCombatManager.gd\").new()
+@export var player_stats: Stats
 @export var inventory_data: InventoryData
 @export var equip_inventory_data: InventoryDataEquip
-signal toggle_inventory()
 
+
+
+
+signal toggle_menu()
+
+@onready var equip_weapon = $\"player body/Equip Weapon\"
 
 
 func _ready():
@@ -33,9 +38,9 @@ func _ready():
 
 	
 func _input(event):
-	if Input.is_action_pressed(\"Inventory\"):
+	if Input.is_action_pressed(\"Menu\"):
 		# Emit the signal to toggle the inventory
-		emit_signal(\"toggle_inventory\")
+		emit_signal(\"toggle_menu\")
 
 var AtkNumber: int = 3
 var knockback_dir = Vector2.ZERO
@@ -47,12 +52,12 @@ var is_running = false
 
 func _process(delta):
 	# Regenerate Health
-	player_stats.regenerate_health(delta)
-	health_changed.emit(player_stats.Health)
+	player_stats.core_stats.regenerate_health(delta)
+	health_changed.emit(player_stats.core_stats.Health)
 	
 	
 	# Regenerate Stamina
-	var updated_stamina = player_stats.Stamina
+	var updated_stamina = player_stats.core_stats.Stamina
 	if Input.is_action_pressed(\"run\"):
 		if updated_stamina > 0:
 			is_running = true
@@ -63,22 +68,19 @@ func _process(delta):
 			is_running = false
 	else:
 		is_running = false
-		if updated_stamina < player_stats.Max_Stamina:
-			updated_stamina = min(updated_stamina + player_stats.Stamina_Regen_Rate * delta, player_stats.Max_Stamina)
+		if updated_stamina < player_stats.core_stats.Max_Stamina:
+			updated_stamina = min(updated_stamina + player_stats.core_stats.Stamina_Regen_Rate * delta, player_stats.core_stats.Max_Stamina)
 	
-	if updated_stamina != player_stats.Stamina:
-		player_stats.Stamina = updated_stamina
-		stamina_changed.emit(player_stats.Stamina)
+	if updated_stamina != player_stats.core_stats.Stamina:
+		player_stats.core_stats.Stamina = updated_stamina
+		stamina_changed.emit(player_stats.core_stats.Stamina)
 		
 		
 	# Regenerate Magic
-	var updated_mana = min(player_stats.Mana + player_stats.Mana_Regen_Rate * delta, player_stats.Max_Mana)
-	if updated_mana != player_stats.Mana:
-		player_stats.Mana = updated_mana
-		mana_changed.emit(player_stats.Mana)
-
-
-
+	var updated_mana = min(player_stats.core_stats.Mana + player_stats.core_stats.Mana_Regen_Rate * delta, player_stats.core_stats.Max_Mana)
+	if updated_mana != player_stats.core_stats.Mana:
+		player_stats.core_stats.Mana = updated_mana
+		mana_changed.emit(player_stats.core_stats.Mana)
 
 
 
@@ -88,10 +90,8 @@ signal mana_changed(value)
 
 
 
-
-
 func _physics_process(delta):
-	if player_stats.Health <= 0:
+	if player_stats.core_stats.Health <= 0:
 		Death()
 
 
@@ -126,7 +126,7 @@ func _physics_process(delta):
 		move()
 	attack_combo()
 
-	velocity = input_vector * (player_stats.Speed * int(speed_multiplier)) + knockback
+	velocity = input_vector * (player_stats.movement_stats.Speed * int(speed_multiplier)) + knockback
 
 	if Input.is_action_pressed(\"interact\"):
 		emit_signal(\"follower_interacted\")
@@ -169,28 +169,33 @@ func Death():
 func _on_weapon_hitbox_area_entered(area):
 	if area.is_in_group(\"EnemyHurt\"):
 		var enemy = area.get_parent()
-		var accuracy = MeleeCombat.calculate_hit(player_stats, enemy.enemy_stats)
-		var damage = MeleeCombat.calculate_damage(player_stats, enemy.enemy_stats)
-		MeleeCombat.handle_damage(enemy.enemy_stats, damage)
-		print(\"Player sword hit enemy\")
+		var accuracy = MeleeCombatManager.calculate_hit(player_stats, enemy.enemy_stats)
+		var damage = MeleeCombatManager.calculate_damage(player_stats, enemy.enemy_stats)
+		MeleeCombatManager.handle_damage(enemy.enemy_stats, damage)
+		var xpGained = damage  # Assuming XP gained equals damage dealt for now
+		player_stats.gainXP(\"melee\", xpGained)  # Update player's melee XP in Stats resource
+		print(\"Player gained\", xpGained, \"XP in melee!\")
+		print(\"Player's total melee XP:\", player_stats.melee_stats.melee_xp)
 
+		
 # Inside _on_attack_detector_area_entered
 func _on_attack_detector_area_entered(area):
 	if area.is_in_group(\"EnemyAttack\"):
 		var enemy = area.get_parent()
-		var accuracy = MeleeCombat.calculate_hit(enemy.enemy_stats, player_stats)
-		var damage = MeleeCombat.calculate_damage(enemy.enemy_stats, player_stats)
-		MeleeCombat.handle_damage(player_stats, damage)
+		var accuracy = MeleeCombatManager.calculate_hit(enemy.enemy_stats, player_stats)
+		var damage = MeleeCombatManager.calculate_damage(enemy.enemy_stats, player_stats)
+		MeleeCombatManager.handle_damage(player_stats, damage)
 		knockback = knockback.move_toward(Vector2.ZERO, 100)
 		knockback = enemy.knockback_dir * enemy.enemy_stats.Knockback_Strength
-		emit_signal(\"health_changed\", player_stats.Health)
+		emit_signal(\"health_changed\", player_stats.core_stats.Health)
 		print(\"Player attacked by enemy\")
 
 "
 
 [sub_resource type="Resource" id="Resource_v03p5"]
 script = ExtResource("2_jhxhr")
-slot_datas = Array[Resource("res://Inventory/slotdata.gd")]([null, null, null])
+slot_datas = Array[Resource("res://Inventory/slotdata.gd")]([null, null, null, null, null, null, null, null, null, null, null, null])
+max_slots = 10
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3lkrq"]
 radius = 5.0
@@ -273,6 +278,114 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [SubResource("CapsuleShape2D_6htsd")]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("player body/player fx:texture")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_6j073")]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("player body/player fx:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("player body/player fx:region_enabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("player body/player fx:region_rect")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(124.659, 65.3736, 66.9353, 58.7392)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("player body/player fx:hframes")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("player body/player fx:frame")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("player body/player fx:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.68221e-06, -7)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("player body/player fx:scale")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.0303, 1)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("player body/player fx:show_behind_parent")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_imhie"]
@@ -1800,6 +1913,102 @@ tracks/18/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("player body/player fx:texture")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_6j073")]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("player body/player fx:visible")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, false]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("player body/player fx:region_enabled")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("player body/player fx:region_rect")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Rect2(124.659, 62.7724, 131.139, 65.5693), Rect2(124.659, 62.7724, 131.139, 65.5693)]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("player body/player fx:hframes")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("player body/player fx:frame")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("player body/player fx:position")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.68221e-06, -7)]
+}
+tracks/26/type = "value"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("player body/player fx:scale")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.0303, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_44ktu"]
 resource_name = "sword slash 1 front"
@@ -2036,6 +2245,66 @@ tracks/18/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("player body/player fx:visible")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("player body/player fx:texture")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("7_6j073"), ExtResource("7_6j073")]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("player body/player fx:frame")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("player body/player fx:region_rect")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Rect2(127.391, 5.39924, 123.625, 59.4222), Rect2(127.391, 5.39924, 123.625, 57.7436), Rect2(127.391, 5.39924, 123.625, 58.0782)]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("player body/player fx:hframes")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
 }
 
 [sub_resource type="Animation" id="Animation_sv1ms"]
@@ -2286,6 +2555,42 @@ tracks/19/keys = {
 "update": 1,
 "values": [true, false, false]
 }
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("player body/player fx:visible")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("player body/player fx:region_rect")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(132.922, 194.492, 120.962, 57.1)]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("player body/player fx:frame")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
 
 [sub_resource type="Animation" id="Animation_haj1j"]
 resource_name = "sword slash 1 right"
@@ -2511,6 +2816,42 @@ tracks/17/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("player body/player fx:region_rect")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Rect2(134.384, 129.934, 124.718, 55.5973), Rect2(134.384, 129.934, 124.718, 55.5973), Rect2(134.384, 129.934, 124.718, 55.5973)]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("player body/player fx:frame")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [1, 0, 1]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("player body/player fx:visible")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
 
 [sub_resource type="Animation" id="Animation_nhw4d"]
 resource_name = "sword slash 2 back"
@@ -2735,6 +3076,54 @@ tracks/17/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, false]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("player body/player fx:visible")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("player body/player fx:texture")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_6j073")]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("player body/player fx:frame")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("player body/player fx:region_rect")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Rect2(129.463, 63.2104, 121.553, 58.7271), Rect2(129.463, 63.2104, 121.553, 58.7271), Rect2(129.463, 63.2104, 121.553, 58.7271), Rect2(129.463, 63.2104, 121.553, 58.7271)]
 }
 
 [sub_resource type="Animation" id="Animation_amwie"]
@@ -2973,6 +3362,54 @@ tracks/18/keys = {
 "update": 1,
 "values": [false, false]
 }
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("player body/player fx:visible")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("player body/player fx:show_behind_parent")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("player body/player fx:region_rect")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Rect2(127.391, 5.39924, 123.625, 58.0782), Rect2(127.391, 5.39924, 123.625, 58.0782)]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("player body/player fx:frame")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
 
 [sub_resource type="Animation" id="Animation_ghl6c"]
 resource_name = "sword slash 2 left"
@@ -3198,6 +3635,42 @@ tracks/17/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("player body/player fx:visible")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("player body/player fx:region_rect")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Rect2(256.138, 193.74, 129.226, 57.8513), Rect2(256.138, 193.74, 129.226, 57.8513)]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("player body/player fx:frame")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
 
 [sub_resource type="Animation" id="Animation_bctme"]
 resource_name = "sword slash 2 right"
@@ -3422,6 +3895,42 @@ tracks/17/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("player body/player fx:visible")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("player body/player fx:region_rect")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Rect2(262.9, 128.376, 126.972, 60.8565), Rect2(262.9, 128.376, 126.972, 60.8565)]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("player body/player fx:frame")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
 }
 
 [sub_resource type="Animation" id="Animation_vaxub"]
@@ -3659,6 +4168,42 @@ tracks/18/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("player body/player fx:visible")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, false]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("player body/player fx:region_rect")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Rect2(383.119, 66.6772, 139.066, 52.3422), Rect2(383.119, 66.6772, 131.882, 52.3422)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("player body/player fx:frame")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
 }
 
 [sub_resource type="Animation" id="Animation_knapf"]
@@ -3945,6 +4490,54 @@ tracks/22/keys = {
 "update": 1,
 "values": [SubResource("CapsuleShape2D_6htsd"), SubResource("CapsuleShape2D_6htsd"), SubResource("CapsuleShape2D_6htsd"), SubResource("CapsuleShape2D_6htsd")]
 }
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("player body/player fx:visible")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("player body/player fx:region_rect")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Rect2(391.375, 1.40357, 123.967, 66.867), Rect2(391.375, 1.40357, 123.967, 66.1903), Rect2(391.375, 1.40357, 123.967, 66.867)]
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("player body/player fx:frame")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/26/type = "value"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("player body/player fx:position")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, 3)]
+}
 
 [sub_resource type="Animation" id="Animation_akn38"]
 resource_name = "sword stab left"
@@ -4218,6 +4811,54 @@ tracks/21/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("player body/player fx:visible")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("player body/player fx:frame")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("player body/player fx:region_rect")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Rect2(386.198, 194.967, 97.5001, 60.0395), Rect2(386.198, 196.506, 124.698, 58.5001)]
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("player body/player fx:position")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, 3)]
+}
 
 [sub_resource type="Animation" id="Animation_7rkxx"]
 resource_name = "sword stab right"
@@ -4442,6 +5083,54 @@ tracks/17/keys = {
 "args": [],
 "method": &"finished_attacking"
 }]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("player body/player fx:visible")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("player body/player fx:region_rect")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Rect2(388.25, 125.69, 140.092, 69.2764), Rect2(384.145, 125.69, 138.553, 69.2764)]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("player body/player fx:frame")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("player body/player fx:position")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, 3)]
 }
 
 [sub_resource type="Animation" id="Animation_rqkii"]
@@ -5165,7 +5854,7 @@ size = Vector2(18, 31)
 
 [node name="Player" type="CharacterBody2D"]
 script = SubResource("GDScript_qmpwp")
-player_stats = ExtResource("1_twycp")
+player_stats = ExtResource("1_xv8ar")
 inventory_data = ExtResource("1_d7im4")
 equip_inventory_data = SubResource("Resource_v03p5")
 
@@ -5178,14 +5867,13 @@ position = Vector2(0, -5)
 texture = ExtResource("6_wgaeo")
 hframes = 8
 vframes = 8
-frame = 20
+frame = 48
 
 [node name="Equip Weapon" type="Sprite2D" parent="player body"]
-show_behind_parent = true
-position = Vector2(4, -11)
-rotation = -1.61792
+position = Vector2(-5, 4)
+rotation = -5.56236
 scale = Vector2(0.882813, 0.619792)
-texture = ExtResource("4_gra2o")
+script = ExtResource("6_1krch")
 
 [node name="WeaponHitbox" type="Area2D" parent="player body/Equip Weapon" groups=["PlayerAttack"]]
 position = Vector2(-23.1627, 11.1626)
@@ -5199,16 +5887,18 @@ disabled = true
 [node name="Equip Offhand" type="Sprite2D" parent="player body"]
 show_behind_parent = true
 clip_children = 2
-position = Vector2(1, -4)
+position = Vector2(4, 0)
 scale = Vector2(0.59375, 0.625)
-skew = -0.366519
 texture = ExtResource("5_px6n8")
 
 [node name="player fx" type="Sprite2D" parent="player body"]
-show_behind_parent = true
-position = Vector2(-3, -7)
-hframes = 9
-vframes = 6
+visible = false
+position = Vector2(2.68221e-06, -7)
+scale = Vector2(1.0303, 1)
+texture = ExtResource("7_6j073")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(124.659, 65.3736, 66.9353, 58.7392)
 
 [node name="body" type="Sprite2D" parent="player body"]
 
@@ -5236,7 +5926,7 @@ parameters/run/blend_position = Vector2(-0.00113124, -0.00411522)
 parameters/walk/blend_position = Vector2(0, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.5, 1.5)
+zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 4.0
 
@@ -5250,6 +5940,6 @@ one_shot = true
 position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_5hgbe")
 
-[connection signal="area_entered" from="player body/Equip Weapon/WeaponHitbox" to="." method="_on_sword_hitbox_area_entered"]
+[connection signal="area_entered" from="player body/Equip Weapon/WeaponHitbox" to="." method="_on_weapon_hitbox_area_entered"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="area_entered" from="AttackDetector" to="." method="_on_attack_detector_area_entered"]

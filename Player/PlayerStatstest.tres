@@ -1,0 +1,100 @@
+[gd_resource type="Resource" script_class="Stats" load_steps=22 format=3 uid="uid://1p43qmou1cb3"]
+
+[ext_resource type="Script" path="res://Skills and data/AgilityStatData.gd" id="1_s26q2"]
+[ext_resource type="Script" path="res://Skills and data/CoreStatData.gd" id="2_noxlu"]
+[ext_resource type="Script" path="res://Skills and data/MagicStatData.gd" id="3_h2b2h"]
+[ext_resource type="Script" path="res://Skills and data/MeleeStatData.gd" id="4_4pp5i"]
+[ext_resource type="Script" path="res://Skills and data/MovementData.gd" id="5_83v5f"]
+[ext_resource type="Script" path="res://Skills and data/RangeStatData.gd" id="6_ex75n"]
+[ext_resource type="Script" path="res://Skills and data/StatsData.gd" id="7_3bac1"]
+[ext_resource type="Script" path="res://Skills and data/ArcaneProficiencyData.gd" id="8_ei4tb"]
+[ext_resource type="Script" path="res://Skills and data/ArtisanSkillData.gd" id="9_rglog"]
+[ext_resource type="Script" path="res://Skills and data/SustenanceSkillData.gd" id="10_4wmrx"]
+[ext_resource type="Script" path="res://Skills and data/SkillingStatData.gd" id="11_w8te8"]
+
+[sub_resource type="Resource" id="Resource_34r5t"]
+script = ExtResource("1_s26q2")
+agility_xp = 0
+evasion = 1
+critical_chance = 1
+max_stat_value = 100
+
+[sub_resource type="Resource" id="Resource_ov8l6"]
+script = ExtResource("2_noxlu")
+Max_Health = 100
+Max_Stamina = 100
+Max_Mana = 100
+Health = 100
+Stamina = 100
+Mana = 100
+Health_Regen_Rate = 0.5
+Stamina_Regen_Rate = 5.0
+Mana_Regen_Rate = 1.0
+
+[sub_resource type="Resource" id="Resource_qiv7f"]
+script = ExtResource("3_h2b2h")
+Magic_xp = 0
+Magic_Knowledge = 1
+Magic_Proficiency = 1
+Magic_Defense = 1
+max_stat_value = 100
+
+[sub_resource type="Resource" id="Resource_fycb8"]
+script = ExtResource("4_4pp5i")
+attack = 20
+strength = 20
+defence = 1
+melee_xp = 0
+max_stat_value = 100
+
+[sub_resource type="Resource" id="Resource_a8c3x"]
+script = ExtResource("5_83v5f")
+Speed = 50.0
+Acceleration = 50.0
+Friction = 0.15
+
+[sub_resource type="Resource" id="Resource_gsgac"]
+script = ExtResource("6_ex75n")
+Precision = 1
+Ranged_proficiancy = 1
+Ranged_xp = 0
+max_stat_value = 100
+
+[sub_resource type="Resource" id="Resource_h80xj"]
+script = ExtResource("8_ei4tb")
+apothecary_xp = 0
+apothecary = 1
+enchanting_xp = 0
+enchanting = 1
+
+[sub_resource type="Resource" id="Resource_ph75y"]
+script = ExtResource("9_rglog")
+fletching = 1
+crafting = 1
+smithing = 1
+artisan_xp = 0
+
+[sub_resource type="Resource" id="Resource_6lyon"]
+script = ExtResource("10_4wmrx")
+cooking_xp = 0
+cooking = 1
+agriculture_xp = 0
+agriculture = 1
+fishing_xp = 0
+fishing = 1
+
+[sub_resource type="Resource" id="Resource_1c3q0"]
+script = ExtResource("11_w8te8")
+Artisan_Skill = SubResource("Resource_ph75y")
+Sustenance_Skill = SubResource("Resource_6lyon")
+Arcane_Proficiency = SubResource("Resource_h80xj")
+
+[resource]
+script = ExtResource("7_3bac1")
+core_stats = SubResource("Resource_ov8l6")
+melee_stats = SubResource("Resource_fycb8")
+ranged_stats = SubResource("Resource_gsgac")
+magic_stats = SubResource("Resource_qiv7f")
+agility_stats = SubResource("Resource_34r5t")
+skilling_stats = SubResource("Resource_1c3q0")
+movement_stats = SubResource("Resource_a8c3x")

@@ -5,6 +5,10 @@ class_name InventoryData
 signal inventory_interact(inventory_data: InventoryData, index:int, button:int)
 signal inventory_updated(inventory_data: InventoryData)
 @export var slot_datas : Array[SlotData]
+@export var max_slots: int = 90
+
+
+
 
 func on_slot_clicked(index:int, button:int) -> void:
 	inventory_interact.emit(self,index,button)

@@ -1,11 +1,9 @@
-extends Resource
-class_name MeleeCombatManager
+extends Node
 
-signal meleedamagedeal(int)
 
 func calculate_hit(attacker_stats, defender_stats):
 	var base_hit_chance = 0.9  # Base chance to hit (90%)
-	var hit_chance = base_hit_chance * attacker_stats.Attack / defender_stats.Agility_Evasion
+	var hit_chance = base_hit_chance * attacker_stats.melee_stats.attack / defender_stats.agility_stats.evasion
 	
 	var random_number = randf()  # Generates a random number between 0 and 1
 	
@@ -20,26 +18,23 @@ func calculate_damage(attacker_stats, defender_stats):
 	var hit = calculate_hit(attacker_stats, defender_stats)
 	
 	if hit:
-		var strength = attacker_stats.Strength
-		var defense = defender_stats.Defense
-		var damage_dealt = strength * 0.9 - defense
+		var strength = attacker_stats.melee_stats.strength
+		var defence = defender_stats.melee_stats.defence
+		var damage_dealt = strength * 0.9 - defence
 		
 		if damage_dealt < 0:
 			damage_dealt = 0
-		print("Damage Dealt:", damage_dealt)
-		meleedamagedeal.emit(damage_dealt)
-		print("Signal emitted with Damage Dealt:", damage_dealt)
 		return damage_dealt
-		
+
 
 	else:
 		return 0  # No damage dealt if the attack misses
 
 func handle_damage(character_stats, damage_dealt):
 	if damage_dealt > 0:  # Only apply damage if damage_dealt is greater than 0
-		character_stats.Health -= damage_dealt
-		character_stats.Health = round(character_stats.Health)  # Round to the nearest integer
+		character_stats.core_stats.Health -= damage_dealt
+		character_stats.core_stats.Health = round(character_stats.core_stats.Health)  # Round to the nearest integer
 		
-		if character_stats.Health < 0:
-			character_stats.Health = 0
-		print("Defender's Health:", character_stats.Health)
+		if character_stats.core_stats.Health < 0:
+			character_stats.core_stats.Health = 0
+		print("Defender's Health:", character_stats.core_stats.Health)

@@ -8,27 +8,28 @@ class_name MeleeStatData
 var meleecombatmanager : MeleeCombatManager
 var min_stat_value: int = 0
 @export var max_stat_value: int = 100  # You can set this based on the max cap
-
-
-
-func _ready():
-	meleecombatmanager.meleedamagedeal.connect(_on_melee_damage_dealt)
-
-
-func _on_melee_damage_dealt(damage_dealt):
-	print("Received Damage Dealt (XP Gained):", damage_dealt)
-	# Update XP in MeleeStatData or perform other actions...
-	melee_xp += damage_dealt
-	print("Updated Melee XP:", melee_xp)
-	# Other logic related to handling the gained XP, if needed
-
-
-
-
-
+var currentLevel: int = 1
+var hasLevels: bool = true
 
 
 func clamp_stats():
 	attack = clamp(attack, min_stat_value, max_stat_value)
 	strength = clamp(strength, min_stat_value, max_stat_value)
 	defence = clamp(defence, min_stat_value, max_stat_value)
+
+
+
+func checkForLevelUp():
+	var xpThreshold = calculateXPNeededForNextLevel(currentLevel, hasLevels)
+	if melee_xp >= xpThreshold:
+		print("Player has enough XP to level up!")
+		currentLevel += 1
+		melee_xp -= xpThreshold  # Reset XP to 0 for the next level
+		increaseStatsOnLevelUp()  # Call function to increase stats
+
+
+func increaseStatsOnLevelUp():
+	# Define how stats increase on level up
+	attack += 1
+	strength += 1
+	defence += 1

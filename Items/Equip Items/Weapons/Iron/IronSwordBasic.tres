@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=3 format=3 uid="uid://dk1gghganxs8x"]
+
+[ext_resource type="Script" path="res://Items/Equip Items/Weapons/Weapon.gd" id="1_31y6q"]
+[ext_resource type="Texture2D" uid="uid://7o6yjpjeb86t" path="res://Item art/Armory/Singles/Weapon_Singles/Iron/Iron_Weapon1.png" id="2_e03yt"]
+
+[resource]
+script = ExtResource("1_31y6q")
+WeaponType = 0
+equip_type = 3
+weapon_attack = 10
+weapon_strength = 10
+weapon_ranged_strength = 0
+weapon_ranged_precision = 0
+weapon_magic_proficiency = 0
+melee_defence = 0
+magic_defence = -2
+ranged_defence = 0
+evasion = 0
+critical_bonus = 1
+name = "Basic Iron Sword"
+description = "Sturdy, basic iron sword"
+texture = ExtResource("2_e03yt")
+stackable = true
+value = 12
+weight = 10
+consumable = false
+InventoryCategory = 1
