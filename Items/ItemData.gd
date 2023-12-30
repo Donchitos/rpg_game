@@ -8,3 +8,4 @@ extends Resource
 @export var value : int 
 @export var weight : int = 0
 @export var consumable : bool
+@export_enum("General","Equipment","Potions","Food","Ingredients") var InventoryCategory

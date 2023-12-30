@@ -13,3 +13,5 @@ texture = ExtResource("2_p5eh1")
 stackable = true
 value = 13
 weight = 15
+consumable = false
+InventoryCategory = 0

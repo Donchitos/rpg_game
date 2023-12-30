@@ -1,17 +1,22 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=3 format=3 uid="uid://bea701i58vlug"]
 
-[ext_resource type="Script" path="res://Items/Equip Items/Weapons/Weapons.gd" id="1_aqtqb"]
+[ext_resource type="Script" path="res://Items/Equip Items/Weapons/Weapon.gd" id="1_aqtqb"]
 [ext_resource type="Texture2D" uid="uid://dmijnqg7lx07o" path="res://Item art/Armory/Singles/Weapon_Singles/Wooden/Wooden_Weapon1.png" id="2_mmbr5"]
 
 [resource]
 script = ExtResource("1_aqtqb")
 WeaponType = 1
-Attack = 2
-Strength = 1
-Ranged_Proficiancy = 0
-Magic_Proficiency = 0
-Attack_Speed = 1.5
-equip_type = null
+equip_type = 3
+weapon_attack = 3
+weapon_strength = 2
+weapon_ranged_strength = 0
+weapon_ranged_precision = 0
+weapon_magic_proficiency = 0
+melee_defence = 0
+magic_defence = 0
+ranged_defence = 0
+evasion = 5
+critical_bonus = 5
 name = "Wooden Dagger"
 description = "A training weapon for an aspiring asassin"
 texture = ExtResource("2_mmbr5")
@@ -19,3 +24,4 @@ stackable = true
 value = 5
 weight = 3
 consumable = false
+InventoryCategory = 1

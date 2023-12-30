@@ -1,23 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://dnwkyc1xiejio"]
+[gd_scene load_steps=3 format=3 uid="uid://dnwkyc1xiejio"]
+
+[ext_resource type="PackedScene" uid="uid://ct1wvcjtiika8" path="res://Inventory/slot.tscn" id="1_tjr6k"]
 
 [sub_resource type="GDScript" id="GDScript_lbe36"]
 script/source = "extends PanelContainer
 
 const Slot = preload(\"res://Inventory/slot.tscn\")
 
-@onready var item_grid = $MarginContainer/ItemGrid
+@onready var item_slots = $ItemGrid
 
 func set_inventory_data(inventory_data: InventoryData) -> void:
 	inventory_data.inventory_updated.connect(populate_item_grid)
 	populate_item_grid(inventory_data)
 
 func populate_item_grid(inventory_data: InventoryData) -> void:
-	for child in item_grid.get_children():
+	for child in item_slots.get_children():
 		child.queue_free()
 
 	for slot_data in inventory_data.slot_datas:
 		var slot = Slot.instantiate()
-		item_grid.add_child(slot)
+		item_slots.add_child(slot)
 
 		slot.slot_clicked.connect(inventory_data.on_slot_clicked)
 
@@ -34,13 +36,366 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = SubResource("GDScript_lbe36")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="ItemGrid" type="GridContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
+columns = 12
 
-[node name="ItemGrid" type="GridContainer" parent="MarginContainer"]
+[node name="Slot" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
 layout_mode = 2
-columns = 6
+
+[node name="Slot2" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot3" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot4" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot5" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot6" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot7" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot8" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot9" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot10" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot11" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot12" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot13" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot14" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot15" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot16" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot17" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot18" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot19" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot20" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot21" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot22" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot23" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot24" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot25" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot26" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot27" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot28" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot29" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot30" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot31" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot32" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot33" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot34" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot35" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot36" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot37" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot38" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot39" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot40" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot41" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot42" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot43" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot44" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot45" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot46" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot47" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot48" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot49" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot50" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot51" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot52" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot53" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot54" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot55" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot56" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot57" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot58" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot59" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot60" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot61" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot62" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot63" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot64" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot65" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot66" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot67" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot68" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot69" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot70" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot71" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot72" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot73" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot74" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot75" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot76" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot77" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot78" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot79" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot80" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot81" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot82" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot83" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot84" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot85" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot86" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot87" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot88" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot89" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot90" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot91" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot92" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot93" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot94" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot95" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot96" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot97" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot98" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot99" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot100" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot101" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot102" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot103" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot104" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot105" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot106" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot107" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot108" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot109" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot110" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot111" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot112" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot113" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot114" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot115" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot116" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot117" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot118" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot119" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2
+
+[node name="Slot120" parent="ItemGrid" instance=ExtResource("1_tjr6k")]
+layout_mode = 2

@@ -13,3 +13,4 @@ stackable = true
 value = 3
 weight = 1
 consumable = true
+InventoryCategory = 4

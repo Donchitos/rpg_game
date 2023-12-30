@@ -1,0 +1,66 @@
+[gd_resource type="Resource" script_class="Stats" load_steps=14 format=3 uid="uid://bh14d0twu7k1m"]
+
+[ext_resource type="Script" path="res://Skills and data/AgilityStatData.gd" id="1_206t0"]
+[ext_resource type="Script" path="res://Skills and data/CoreStatData.gd" id="2_4jlxj"]
+[ext_resource type="Script" path="res://Skills and data/MagicStatData.gd" id="3_la2br"]
+[ext_resource type="Script" path="res://Skills and data/MeleeStatData.gd" id="4_e0ioa"]
+[ext_resource type="Script" path="res://Skills and data/MovementData.gd" id="5_bru1o"]
+[ext_resource type="Script" path="res://Skills and data/RangeStatData.gd" id="6_mmbrg"]
+[ext_resource type="Script" path="res://Skills and data/StatsData.gd" id="7_ffpud"]
+
+[sub_resource type="Resource" id="Resource_oroek"]
+script = ExtResource("1_206t0")
+agility_xp = 0
+evasion = 1
+critical_chance = 1
+max_stat_value = 100
+
+[sub_resource type="Resource" id="Resource_l46w7"]
+script = ExtResource("2_4jlxj")
+Max_Health = 40
+Max_Stamina = 40
+Max_Mana = 40
+Health = 40
+Stamina = 40
+Mana = 40
+Health_Regen_Rate = 0.5
+Stamina_Regen_Rate = 5.0
+Mana_Regen_Rate = 1.0
+
+[sub_resource type="Resource" id="Resource_twmsj"]
+script = ExtResource("3_la2br")
+Magic_xp = 0
+Magic_Knowledge = 1
+Magic_Proficiency = 1
+Magic_Defense = 1
+max_stat_value = 100
+
+[sub_resource type="Resource" id="Resource_pvt1d"]
+script = ExtResource("4_e0ioa")
+attack = 1
+strength = 1
+defence = 1
+melee_xp = 0
+max_stat_value = 100
+
+[sub_resource type="Resource" id="Resource_8gbxj"]
+script = ExtResource("5_bru1o")
+Speed = 20.0
+Acceleration = 20.0
+Friction = 1.0
+
+[sub_resource type="Resource" id="Resource_b3u5g"]
+script = ExtResource("6_mmbrg")
+Precision = 1
+Ranged_proficiancy = 1
+Ranged_xp = 0
+max_stat_value = 100
+
+[resource]
+script = ExtResource("7_ffpud")
+core_stats = SubResource("Resource_l46w7")
+melee_stats = SubResource("Resource_pvt1d")
+ranged_stats = SubResource("Resource_b3u5g")
+magic_stats = SubResource("Resource_twmsj")
+agility_stats = SubResource("Resource_oroek")
+movement_stats = SubResource("Resource_8gbxj")

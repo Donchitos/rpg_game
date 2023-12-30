@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=3 format=3 uid="uid://liwmp0pb8rrn"]
+
+[ext_resource type="Script" path="res://Items/Equip Items/Weapons/Weapon.gd" id="1_2d6km"]
+[ext_resource type="Texture2D" uid="uid://boajf75qalyyo" path="res://Item art/Armory/Singles/Weapon_Singles/Iron/Iron_Weapon35.png" id="2_g8ay2"]
+
+[resource]
+script = ExtResource("1_2d6km")
+WeaponType = 2
+equip_type = 3
+weapon_attack = 0
+weapon_strength = 0
+weapon_ranged_strength = 5
+weapon_ranged_precision = 5
+weapon_magic_proficiency = 0
+melee_defence = 0
+magic_defence = 0
+ranged_defence = 0
+evasion = 3
+critical_bonus = 2
+name = "Iron Bow"
+description = "A basic starter bow"
+texture = ExtResource("2_g8ay2")
+stackable = true
+value = 4
+weight = 3
+consumable = false
+InventoryCategory = 1

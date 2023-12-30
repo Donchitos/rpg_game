@@ -1,21 +1,26 @@
-[gd_resource type="Resource" script_class="Armour" load_steps=3 format=3 uid="uid://cvl0jrd1ypxfu"]
+[gd_resource type="Resource" script_class="ItemDataEquip" load_steps=3 format=3 uid="uid://cvl0jrd1ypxfu"]
 
-[ext_resource type="Script" path="res://Items/Equip Items/Armour/ArmourData.gd" id="1_jndhw"]
-[ext_resource type="Texture2D" uid="uid://82clevn6a47u" path="res://Item art/Armory/Singles/Armor_Singles/Iron/Iron_Boots4.png" id="2_d0wi8"]
+[ext_resource type="Script" path="res://Items/Equip Items/ItemDataEquip.gd" id="1_nxvgf"]
+[ext_resource type="Texture2D" uid="uid://ctbk7m7wcqikm" path="res://Item art/Armory/Singles/Armor_Singles/Iron/Iron_Boots2.png" id="2_8rxjv"]
 
 [resource]
-script = ExtResource("1_jndhw")
-ArmourType = 4
-Defence = 6
-RangedDefence = 12
-MagicDefence = -10
-DurabilityMax = 100.0
-Durability = 100.0
-equip_type = 1
+script = ExtResource("1_nxvgf")
+equip_type = 10
+weapon_attack = 0
+weapon_strength = 0
+weapon_ranged_strength = 0
+weapon_ranged_precision = 0
+weapon_magic_proficiency = 0
+melee_defence = 6
+magic_defence = -2
+ranged_defence = 10
+evasion = 0
+critical_bonus = 0
 name = "Iron Boots"
-description = "Starter Booties"
-texture = ExtResource("2_d0wi8")
+description = "Iron booties"
+texture = ExtResource("2_8rxjv")
 stackable = true
-value = 13
+value = 10
 weight = 6
 consumable = false
+InventoryCategory = 1

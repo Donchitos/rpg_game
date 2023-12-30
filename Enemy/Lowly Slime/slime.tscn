@@ -1,8 +1,9 @@
-[gd_scene load_steps=49 format=3 uid="uid://ccr32kuvuwuwv"]
+[gd_scene load_steps=50 format=3 uid="uid://ccr32kuvuwuwv"]
 
 [ext_resource type="PackedScene" uid="uid://blnj220jjqi8b" path="res://Enemy/enemy.tscn" id="1_8gaos"]
 [ext_resource type="Resource" uid="uid://b8fdv70edgjby" path="res://Enemy/Lowly Slime/lowlyslimedrops.tres" id="2_05gj7"]
 [ext_resource type="Texture2D" uid="uid://c1hsodpnx33sm" path="res://enemy sprites/slime/Updated Slime/Slime_Idle.png" id="2_chyo6"]
+[ext_resource type="Resource" uid="uid://bh14d0twu7k1m" path="res://Enemy/Lowly Slime/lowlyslimetest.tres" id="2_qd0c7"]
 [ext_resource type="Texture2D" uid="uid://cv6g65jkof8uo" path="res://enemy sprites/slime/Updated Slime/Slime_Attack.png" id="3_x3e3g"]
 [ext_resource type="Texture2D" uid="uid://8lvygaan3m1j" path="res://enemy sprites/slime/Updated Slime/Slime_Move.png" id="4_icv1v"]
 
@@ -1090,6 +1091,7 @@ radius = 13.6015
 radius = 8.0
 
 [node name="Slime" instance=ExtResource("1_8gaos")]
+enemy_stats = ExtResource("2_qd0c7")
 drop_table = ExtResource("2_05gj7")
 
 [node name="WonderZone@CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
