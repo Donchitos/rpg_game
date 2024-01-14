@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://blnj220jjqi8b"]
+[gd_scene load_steps=3 format=3 uid="uid://blnj220jjqi8b"]
 
 [ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_5xsg0"]
+[ext_resource type="Resource" uid="uid://bh14d0twu7k1m" path="res://Enemy/Lowly Slime/lowlyslimetest.tres" id="2_varsk"]
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
 script = ExtResource("1_5xsg0")
+enemy_stats = ExtResource("2_varsk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 

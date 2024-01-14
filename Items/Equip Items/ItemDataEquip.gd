@@ -7,7 +7,6 @@ class_name ItemDataEquip
 
 
 
-
 @export var weapon_attack : int = 0
 @export var weapon_strength : int = 0
 @export var weapon_ranged_strength : int = 0

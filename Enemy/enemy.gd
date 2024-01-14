@@ -20,6 +20,90 @@ var idle_time = 0.0
 var attack_cooldown = 1.0
 var time_since_last_attack = 0.0
 @export var drop_table: DropTable
+@export var inventory_data: InventoryData
+@export var equip_inventory_data: InventoryDataEquip
+var total_attack = 0
+var total_strength = 0
+var total_melee_defence = 0
+var total_ranged_precision = 0
+var total_ranged_strength = 0
+var total_ranged_defence = 0
+var total_magic_proficiency = 0
+var total_magic_defence = 0
+var total_evasion = 0
+var total_critical_bonus = 0
+@onready var total_stats = TotalEquipStats.new()
+
+# Define functions to handle signals
+func _on_inventory_updated(inventory_data: InventoryData) -> void:
+	# Handle inventory update here
+	var hasItem = false  # Flag to track if there's an item in the inventory
+
+	# Loop through the inventory data and update the UI or perform actions based on the new data
+	for slot_data in inventory_data.slot_datas:
+		if slot_data and slot_data.item_data is ItemDataEquip:
+			_on_equip_item_added(slot_data.item_data)
+			hasItem = true  # Set the flag to true if there's an item in the inventory
+
+	# If there's no item in the inventory, set the texture to null or a default texture
+	if not hasItem:
+		$PlayerBody/EquippedWeapon.texture = null  # Or set a default texture
+	calculateTotalStats(inventory_data)
+	print("Total Attack:", total_attack)
+	print("Total Strength:", total_strength)
+	print("total defence:", total_melee_defence)
+func _on_equip_item_added(item_data: ItemDataEquip) -> void:
+	# Handle equipping item here
+	if item_data is Weapon:
+		var equipped_texture = item_data.texture
+		$PlayerBody/EquippedWeapon.texture = equipped_texture
+	total_stats.calculateTotalStats(inventory_data)
+	# Handle other equip actions based on the type of item
+	# Add additional conditions for other types of equipment
+	total_attack += item_data.weapon_attack
+	total_strength += item_data.weapon_strength
+	total_melee_defence += item_data.melee_defence
+	total_ranged_precision += item_data.weapon_ranged_precision
+	total_ranged_strength += item_data.weapon_ranged_strength
+	total_ranged_defence += item_data.ranged_defence
+	total_magic_proficiency += item_data.weapon_magic_proficiency
+	total_magic_defence += item_data.magic_defence
+	total_evasion += item_data.evasion
+	total_critical_bonus += item_data.critical_bonus
+
+
+func calculateTotalStats(inventory_data: InventoryData):
+	# Reset total stats to zero before recalculating
+	total_attack = 0
+	total_strength = 0
+	total_melee_defence = 0
+	total_ranged_precision = 0
+	total_ranged_strength = 0
+	total_ranged_defence = 0
+	total_magic_proficiency = 0
+	total_magic_defence = 0
+	total_evasion = 0
+	total_critical_bonus = 0
+
+	# Iterate through inventory and calculate total stats
+	for slot_data in inventory_data.slot_datas:
+		if slot_data and slot_data.item_data:
+			var item_data = slot_data.item_data
+			if item_data is ItemDataEquip:
+				total_attack += item_data.weapon_attack
+				total_strength += item_data.weapon_strength
+				total_melee_defence += item_data.melee_defence
+				total_ranged_precision += item_data.weapon_ranged_precision
+				total_ranged_strength += item_data.weapon_ranged_strength
+				total_ranged_defence += item_data.ranged_defence
+				total_magic_proficiency += item_data.weapon_magic_proficiency
+				total_magic_defence += item_data.magic_defence
+				total_evasion += item_data.evasion
+				total_critical_bonus += item_data.critical_bonus
+
+
+
+
 
 signal enemy_death(enemy,drop_table)
 
@@ -137,16 +221,16 @@ func _on_chase_detector_body_exited(body):
 func _on_attack_box_area_entered(area):
 	if area.is_in_group("PlayerHurt"):  # Assuming the player's hitbox area is in the 'PlayerHurt' group
 		var player = area.get_parent()  # Assuming the area's parent node is the player
-		var accuracy = MeleeCombatManager.calculate_hit(enemy_stats, player.player_stats)
-		var damage = MeleeCombatManager.calculate_damage(enemy_stats, player.player_stats)
+		var accuracy = MeleeCombatManager.calculate_hit(enemy_stats, player.player_stats,total_stats,player.total_stats)
+		var damage = MeleeCombatManager.calculate_damage(enemy_stats, player.player_stats,total_stats, player.total_stats)
 		MeleeCombatManager.handle_damage(player.player_stats, damage)
 
 
 func _on_hurt_box_area_entered(area):
 	if area.is_in_group("PlayerAttack"):  # Assuming the player's attack box area is in the 'PlayerAttack' group
 		var player = area.get_parent().get_parent().get_parent()  # Assuming the area's grandparent node is the player
-		var accuracy = MeleeCombatManager.calculate_hit(player.player_stats, enemy_stats)
-		var damage = MeleeCombatManager.calculate_damage(player.player_stats, enemy_stats)
+		var accuracy = MeleeCombatManager.calculate_hit(player.player_stats, enemy_stats,player.total_stats, total_stats)
+		var damage = MeleeCombatManager.calculate_damage(player.player_stats, enemy_stats, player.total_stats, total_stats)
 		MeleeCombatManager.handle_damage(enemy_stats, damage)
 		knockback = knockback.move_toward(Vector2.ZERO, 100)
 		knockback = player.knockback_dir * player.player_stats.Knockback_Strength
