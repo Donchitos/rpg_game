@@ -8,14 +8,17 @@ var enemy = Enemy
 
 @onready var inventory_interface = $PlayerUIOverlay/PlayerUI/TabContainer/Inventory/InventoryInterface
 
+@onready var equipped_weapon = $PlayerBody/EquippedWeapon
+
+
+
+
 func _ready() -> void:
 	inventory_interface.set_player_inventory_data(player.inventory_data)
 	inventory_interface.set_equip_inventory_data(player.equip_inventory_data)
-	
-	
-	
-	
-	
+
+
+
 	for child in get_children():
 		if child is Enemy:  # Check if the node is an instance of the Enemy class
 			child.enemy_death.connect(_on_enemy_death)
@@ -40,3 +43,6 @@ func _on_enemy_death(enemy, drop_table: DropTable) -> void:
 		
 		add_child(item_drop_scene)
 
+func _on_equip_item_added(item_data):
+	# Forward the received item_data to the Player script
+	player._on_equip_item_added(item_data)  

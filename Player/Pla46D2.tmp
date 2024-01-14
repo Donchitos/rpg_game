@@ -1,11 +1,13 @@
-[gd_scene load_steps=119 format=3 uid="uid://d3mu7c5po244t"]
+[gd_scene load_steps=122 format=3 uid="uid://d3mu7c5po244t"]
 
 [ext_resource type="Resource" uid="uid://co4ac8sdynbcr" path="res://Inventory/test_inv.tres" id="1_d7im4"]
 [ext_resource type="Resource" uid="uid://1p43qmou1cb3" path="res://Player/PlayerStatstest.tres" id="1_xv8ar"]
 [ext_resource type="Texture2D" uid="uid://bmnvya2vebct8" path="res://player sprites/char_a_p1_0bas_humn_v01.png" id="2_2lf1w"]
 [ext_resource type="Script" path="res://Inventory/inventory_data_equip.gd" id="2_jhxhr"]
 [ext_resource type="Texture2D" uid="uid://cvxnf13n7geit" path="res://player sprites/char_a_p2_0bas_humn_v01.png" id="2_wx1fi"]
+[ext_resource type="Resource" uid="uid://dk1gghganxs8x" path="res://Items/Equip Items/Weapons/Iron/IronSwordBasic.tres" id="4_6i2b4"]
 [ext_resource type="Texture2D" uid="uid://bc7mr3bngedl6" path="res://Item art/Armory/Singles/Weapon_Singles/Crimson/Crimson_Shield2.png" id="5_px6n8"]
+[ext_resource type="Script" path="res://Inventory/slotdata.gd" id="5_s4f2a"]
 [ext_resource type="Texture2D" uid="uid://cbkwbue00i5xt" path="res://player sprites/char_a_pONE1_0bas_humn_v01.png" id="5_yrj7y"]
 [ext_resource type="Script" path="res://Player/Equip Weapon.gd" id="6_1krch"]
 [ext_resource type="Texture2D" uid="uid://dnlvxfkxddrwn" path="res://player sprites/char_a_pONE3_0bas_humn_v01.png" id="6_wgaeo"]
@@ -25,95 +27,29 @@ class_name Player
 @export var equip_inventory_data: InventoryDataEquip
 @onready var player_ui = $\"../PlayerUIOverlay/PlayerUI\"
 @onready var equip_inventory = player_ui.get_node(\"TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/EquipInventory\")
+
+
 @onready var equipped_weapon = $PlayerBody/EquippedWeapon
-@onready var total_stats = TotalEquipStats.new()
-var total_attack = 0
-var total_strength = 0
-var total_melee_defence = 0
-var total_ranged_precision = 0
-var total_ranged_strength = 0
-var total_ranged_defence = 0
-var total_magic_proficiency = 0
-var total_magic_defence = 0
-var total_evasion = 0
-var total_critical_bonus = 0
+
+
+
 signal toggle_menu()
 
-# Define functions to handle signals
-func _on_inventory_updated(inventory_data: InventoryData) -> void:
-	# Handle inventory update here
-	var hasItem = false  # Flag to track if there's an item in the inventory
-
-	# Loop through the inventory data and update the UI or perform actions based on the new data
-	for slot_data in inventory_data.slot_datas:
-		if slot_data and slot_data.item_data is ItemDataEquip:
-			_on_equip_item_added(slot_data.item_data)
-			hasItem = true  # Set the flag to true if there's an item in the inventory
-
-	# If there's no item in the inventory, set the texture to null or a default texture
-	if not hasItem:
-		$PlayerBody/EquippedWeapon.texture = null  # Or set a default texture
-	calculateTotalStats(inventory_data)
-	print(\"Total Attack:\", total_attack)
-	print(\"Total Strength:\", total_strength)
-	print(\"total defence:\", total_melee_defence)
 func _on_equip_item_added(item_data: ItemDataEquip) -> void:
-	# Handle equipping item here
-	if item_data is Weapon:
-		var equipped_texture = item_data.texture
+	if item_data.equip_type == ItemDataEquip.Weapon:
+		var equipped_texture = item_data.texture  # Extract texture info from the item data
 		$PlayerBody/EquippedWeapon.texture = equipped_texture
-	total_stats.calculateTotalStats(inventory_data)
-	# Handle other equip actions based on the type of item
-	# Add additional conditions for other types of equipment
-	total_attack += item_data.weapon_attack
-	total_strength += item_data.weapon_strength
-	total_melee_defence += item_data.melee_defence
-	total_ranged_precision += item_data.weapon_ranged_precision
-	total_ranged_strength += item_data.weapon_ranged_strength
-	total_ranged_defence += item_data.ranged_defence
-	total_magic_proficiency += item_data.weapon_magic_proficiency
-	total_magic_defence += item_data.magic_defence
-	total_evasion += item_data.evasion
-	total_critical_bonus += item_data.critical_bonus
+	else:
+		# If the slot doesn't contain a weapon, set the texture to null or a default texture
+		$PlayerBody/EquippedWeapon.texture = null  # Or set a default texture
 
 
-func calculateTotalStats(inventory_data: InventoryData):
-	# Reset total stats to zero before recalculating
-	total_attack = 0
-	total_strength = 0
-	total_melee_defence = 0
-	total_ranged_precision = 0
-	total_ranged_strength = 0
-	total_ranged_defence = 0
-	total_magic_proficiency = 0
-	total_magic_defence = 0
-	total_evasion = 0
-	total_critical_bonus = 0
-
-	# Iterate through inventory and calculate total stats
-	for slot_data in inventory_data.slot_datas:
-		if slot_data and slot_data.item_data:
-			var item_data = slot_data.item_data
-			if item_data is ItemDataEquip:
-				total_attack += item_data.weapon_attack
-				total_strength += item_data.weapon_strength
-				total_melee_defence += item_data.melee_defence
-				total_ranged_precision += item_data.weapon_ranged_precision
-				total_ranged_strength += item_data.weapon_ranged_strength
-				total_ranged_defence += item_data.ranged_defence
-				total_magic_proficiency += item_data.weapon_magic_proficiency
-				total_magic_defence += item_data.magic_defence
-				total_evasion += item_data.evasion
-				total_critical_bonus += item_data.critical_bonus
-
-
-	
 
 
 func _ready():
 	animTree.active = true
 	equip_inventory.equipItemAdded.connect(_on_equip_item_added)
-	equip_inventory.inventory_updated.connect(_on_inventory_updated)
+
 	
 func _input(event):
 	if Input.is_action_pressed(\"Menu\"):
@@ -247,8 +183,8 @@ func Death():
 func _on_weapon_hitbox_area_entered(area):
 	if area.is_in_group(\"EnemyHurt\"):
 		var enemy = area.get_parent()
-		var accuracy = MeleeCombatManager.calculate_hit(player_stats, enemy.enemy_stats, total_stats, enemy.total_stats)
-		var damage = MeleeCombatManager.calculate_damage(player_stats, enemy.enemy_stats, total_stats, enemy.total_stats)
+		var accuracy = MeleeCombatManager.calculate_hit(player_stats, enemy.enemy_stats)
+		var damage = MeleeCombatManager.calculate_damage(player_stats, enemy.enemy_stats)
 		MeleeCombatManager.handle_damage(enemy.enemy_stats, damage)
 		var xpGained = damage  # Assuming XP gained equals damage dealt for now
 		player_stats.gainXP(\"melee\", xpGained)  # Update player's melee XP in Stats resource
@@ -260,18 +196,24 @@ func _on_weapon_hitbox_area_entered(area):
 func _on_attack_detector_area_entered(area):
 	if area.is_in_group(\"EnemyAttack\"):
 		var enemy = area.get_parent()
-		var accuracy = MeleeCombatManager.calculate_hit(enemy.enemy_stats, player_stats, enemy.total_stats, total_stats)
-		var damage = MeleeCombatManager.calculate_damage(enemy.enemy_stats, player_stats, enemy.total_stats, total_stats)
+		var accuracy = MeleeCombatManager.calculate_hit(enemy.enemy_stats, player_stats)
+		var damage = MeleeCombatManager.calculate_damage(enemy.enemy_stats, player_stats)
 		MeleeCombatManager.handle_damage(player_stats, damage)
 		knockback = knockback.move_toward(Vector2.ZERO, 100)
 		knockback = enemy.knockback_dir * enemy.enemy_stats.Knockback_Strength
 		emit_signal(\"health_changed\", player_stats.core_stats.Health)
 		print(\"Player attacked by enemy\")
+
 "
+
+[sub_resource type="Resource" id="Resource_eqxtc"]
+script = ExtResource("5_s4f2a")
+item_data = ExtResource("4_6i2b4")
+quantity = 1
 
 [sub_resource type="Resource" id="Resource_v03p5"]
 script = ExtResource("2_jhxhr")
-slot_datas = Array[Resource("res://Inventory/slotdata.gd")]([null, null, null, null, null, null, null, null, null, null, null])
+slot_datas = Array[ExtResource("5_s4f2a")]([null, null, null, SubResource("Resource_eqxtc"), null, null, null, null, null, null, null])
 max_slots = 10
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3lkrq"]
@@ -5941,10 +5883,10 @@ shape = SubResource("CapsuleShape2D_3lkrq")
 
 [node name="PlayerBody" type="Sprite2D" parent="."]
 position = Vector2(0, -5)
-texture = ExtResource("2_wx1fi")
+texture = ExtResource("6_wgaeo")
 hframes = 8
 vframes = 8
-frame = 8
+frame = 48
 
 [node name="EquippedWeapon" type="Sprite2D" parent="PlayerBody"]
 position = Vector2(-5, 4)

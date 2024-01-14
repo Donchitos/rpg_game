@@ -207,10 +207,10 @@ tint_progress = Color(0, 0.960784, 0.960784, 1)
 [node name="Timer" type="Timer" parent="XpDrop"]
 wait_time = 5.0
 
-[connection signal="value_changed" from="HBoxContainer/VBoxContainer/HealthBar" to="." method="_on_health_bar_value_changed"]
 [connection signal="value_changed" from="HBoxContainer/VBoxContainer/HealthBar" to="." method="_on_texture_progress_bar_value_changed"]
-[connection signal="value_changed" from="HBoxContainer/VBoxContainer/StaminaBar" to="." method="_on_texture_progress_bar_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/VBoxContainer/HealthBar" to="." method="_on_health_bar_value_changed"]
 [connection signal="value_changed" from="HBoxContainer/VBoxContainer/StaminaBar" to="." method="_on_stamina_bar_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/VBoxContainer/StaminaBar" to="." method="_on_texture_progress_bar_value_changed"]
 [connection signal="value_changed" from="HBoxContainer/VBoxContainer/MagicBar" to="." method="_on_texture_progress_bar_value_changed"]
 [connection signal="value_changed" from="XpDrop/XPBar" to="." method="_on_xp_bar_value_changed"]
 [connection signal="timeout" from="XpDrop/Timer" to="." method="_on_timer_timeout"]

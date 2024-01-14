@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=13 format=3 uid="uid://co4ac8sdynbcr"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=15 format=3 uid="uid://co4ac8sdynbcr"]
 
 [ext_resource type="Script" path="res://Inventory/InventoryData.gd" id="1_dlpoy"]
 [ext_resource type="Resource" uid="uid://cwovtyv1dokjo" path="res://Items/Ores/Coal.tres" id="2_6i7t0"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://vgr1b1uj5vc8" path="res://Items/test item.tres" id="4_1m8bn"]
 [ext_resource type="Resource" uid="uid://bea701i58vlug" path="res://Items/Equip Items/Weapons/Wooden/Wooden Dagger.tres" id="5_ncyvr"]
 [ext_resource type="Resource" uid="uid://cvl0jrd1ypxfu" path="res://Items/Equip Items/Armour/Feet/Iron/IronBoots.tres" id="6_s8ve5"]
+[ext_resource type="Resource" uid="uid://dk1gghganxs8x" path="res://Items/Equip Items/Weapons/Iron/IronSwordBasic.tres" id="7_0mb4g"]
 
 [sub_resource type="Resource" id="Resource_cjeot"]
 script = ExtResource("2_i2kkl")
@@ -37,7 +38,12 @@ script = ExtResource("2_i2kkl")
 item_data = ExtResource("6_s8ve5")
 quantity = 1
 
+[sub_resource type="Resource" id="Resource_608yy"]
+script = ExtResource("2_i2kkl")
+item_data = ExtResource("7_0mb4g")
+quantity = 1
+
 [resource]
 script = ExtResource("1_dlpoy")
-slot_datas = Array[ExtResource("2_i2kkl")]([SubResource("Resource_cjeot"), SubResource("Resource_cyv2c"), SubResource("Resource_6634q"), SubResource("Resource_w1qom"), SubResource("Resource_o3hr5"), SubResource("Resource_2w8q4"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+slot_datas = Array[ExtResource("2_i2kkl")]([SubResource("Resource_cjeot"), SubResource("Resource_cyv2c"), SubResource("Resource_6634q"), SubResource("Resource_w1qom"), SubResource("Resource_o3hr5"), SubResource("Resource_2w8q4"), SubResource("Resource_608yy"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 max_slots = 90

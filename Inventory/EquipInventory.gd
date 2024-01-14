@@ -44,8 +44,10 @@ func populate_item_grid(inventory_data: InventoryData) -> void:
 			var item_data = slot_data.item_data
 			if item_data is ItemDataEquip:
 				if item_data is ItemDataEquip:
-					emit_signal("equipItemAdded", item_data)
+					emit_signal("equipItemAdded", item_data,)
 
 	emit_signal("inventory_updated", inventory_data) # Emit the inventory_updated signal after updating the inventory
 
-
+func equip_item(item_data: ItemDataEquip) -> void:
+	# Your logic to equip the item goes here
+	emit_signal("equipItemAdded", item_data)

@@ -1,0 +1,1953 @@
+[gd_scene load_steps=11 format=3 uid="uid://bpxwplt7hc671"]
+
+[ext_resource type="Script" path="res://PlayerUI.gd" id="1_4bsaf"]
+[ext_resource type="PackedScene" uid="uid://ct1wvcjtiika8" path="res://Inventory/slot.tscn" id="1_yf1nr"]
+[ext_resource type="PackedScene" uid="uid://dnwkyc1xiejio" path="res://Inventory/inventory.tscn" id="2_tsdm4"]
+[ext_resource type="Script" path="res://Inventory/Inventory_Interface.gd" id="2_v2qfa"]
+[ext_resource type="Script" path="res://EquipBox.gd" id="4_0moeo"]
+[ext_resource type="Script" path="res://Inventory/EquipInventory.gd" id="4_wpqr3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qj1mk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_31uxw"]
+bg_color = Color(0.345098, 0.403922, 0.521569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sfqhg"]
+bg_color = Color(0.219608, 0.254902, 0.384314, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dthel"]
+
+[node name="PlayerUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4bsaf")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+custom_minimum_size = Vector2(1500, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -430.0
+offset_right = 500.0
+offset_bottom = 430.0
+grow_horizontal = 2
+grow_vertical = 2
+tab_alignment = 1
+
+[node name="Inventory" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+
+[node name="InventoryInterface" type="Control" parent="TabContainer/Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_v2qfa")
+
+[node name="GrabbedSlot" parent="TabContainer/Inventory/InventoryInterface" instance=ExtResource("1_yf1nr")]
+visible = false
+top_level = true
+layout_mode = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qj1mk")
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Inventory/InventoryInterface"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.64
+theme_override_styles/panel = SubResource("StyleBoxFlat_31uxw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="EquipBox" type="PanelContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+script = ExtResource("4_0moeo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer"]
+layout_mode = 2
+text = "Equipped Gear"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="EquipInventory" type="PanelContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+script = ExtResource("4_wpqr3")
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/EquipInventory"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/EquipInventory/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 52
+columns = 3
+
+[node name="QuiverSlot" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/EquipInventory/MarginContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="HeadSlot" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/EquipInventory/MarginContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="AmuletSlot" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/EquipInventory/MarginContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="WeaponSlot" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/EquipInventory/MarginContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="BodySlot" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/EquipInventory/MarginContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="OffhandSlot" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/EquipInventory/MarginContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="RingSlot" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/EquipInventory/MarginContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="LegsSlot" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/EquipInventory/MarginContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="BraceletSlot" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/EquipInventory/MarginContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="HandsSlot" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/EquipInventory/MarginContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="BootsSlot" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/EquipInventory/MarginContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="GearInterface" type="PanelContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Gear Stats" type="VBoxContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats"]
+layout_mode = 2
+text = "Gear Bonuses"
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+theme_override_constants/h_separation = 100
+theme_override_constants/v_separation = 30
+columns = 2
+
+[node name="Label" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Attack
+"
+
+[node name="MeleeAttackLabel" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "0
+"
+
+[node name="Label3" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Strength"
+
+[node name="MeleeStrengthLabel" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="Label5" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Defence"
+
+[node name="MeleeDefenceLabel" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "0
+"
+
+[node name="Label7" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Ranged Precision
+"
+
+[node name="RangedPrecisionLabel" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "0
+"
+
+[node name="Label9" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Ranged Strength
+"
+
+[node name="RangedStrengthLabel" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="Label10" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Ranged Defence"
+
+[node name="RangedDefenceLabel2" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "0
+"
+
+[node name="Label11" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Magic Potentness
+"
+
+[node name="MagicProficiancyLabel" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="Label14" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Magic Defence
+"
+
+[node name="MagicDefenceLabel2" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "0
+"
+
+[node name="Label12" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Evasion
+"
+
+[node name="EvasionLabel" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "0
+"
+
+[node name="Label13" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Critical Bonus
+"
+
+[node name="CriticalBonusLabel" type="Label" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/EquipBox/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/GearInterface/Gear Stats/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="PanelContainer2" type="PanelContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer2" type="PanelContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_sfqhg")
+
+[node name="Inventories" type="TabContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2"]
+layout_mode = 2
+tab_alignment = 1
+
+[node name="General" type="TabBar" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/General"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PlayerInventory" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/General/MarginContainer" instance=ExtResource("2_tsdm4")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_dthel")
+
+[node name="Equipment" type="TabBar" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 6
+
+[node name="Slot" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot2" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot3" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot4" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot5" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot6" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot7" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot8" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot9" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot10" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot11" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot12" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot13" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot14" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot15" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot16" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot17" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot18" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot19" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot20" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot21" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Equipment/MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Potions" type="TabBar" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 6
+
+[node name="Slot" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot2" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot3" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot4" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot5" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot6" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot7" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot8" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot9" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot10" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot11" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot12" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot13" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot14" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot15" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot16" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot17" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot18" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot19" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot20" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot21" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Potions/MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Food" type="TabBar" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 6
+
+[node name="Slot" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot2" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot3" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot4" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot5" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot6" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot7" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot8" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot9" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot10" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot11" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot12" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot13" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot14" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot15" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot16" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot17" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot18" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot19" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot20" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot21" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Food/MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Ingredients" type="TabBar" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 6
+
+[node name="Slot" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot2" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot3" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot4" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot5" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot6" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot7" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot8" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot9" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot10" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot11" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot12" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot13" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot14" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot15" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot16" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot17" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot18" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot19" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot20" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="Slot21" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer/GridContainer" instance=ExtResource("1_yf1nr")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Inventory/InventoryInterface/MarginContainer/HBoxContainer/PanelContainer2/Inventories/Ingredients/MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Attributes" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="AttributesInterface" type="Control" parent="TabContainer/Attributes"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Attributes/AttributesInterface"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
+theme_override_font_sizes/font_size = 30
+text = "Combat"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CombatContainer" type="PanelContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="MeleeBox" type="PanelContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Melee"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+theme_override_constants/h_separation = 17
+theme_override_constants/v_separation = 30
+columns = 4
+
+[node name="Button" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+disabled = true
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Attack
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button2" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+disabled = true
+
+[node name="Label2" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button3" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Strength" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Strength
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button4" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label4" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button5" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label5" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Defence"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button6" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label6" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.36
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "EXP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.73
+
+[node name="Label2" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.45
+theme_override_font_sizes/font_size = 13
+text = "Skill Points"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MeleeBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+theme_override_font_sizes/font_size = 21
+text = "0
+"
+
+[node name="RangedBox" type="PanelContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/RangedBox"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/RangedBox/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/RangedBox/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/RangedBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Ranged"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/RangedBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+theme_override_constants/h_separation = 17
+theme_override_constants/v_separation = 30
+columns = 4
+
+[node name="Button" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/RangedBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+disabled = true
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/RangedBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Precision
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button2" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/RangedBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+disabled = true
+
+[node name="Label2" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/RangedBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button3" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/RangedBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label3" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/RangedBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Ranged Proficiancy
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button4" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/RangedBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label4" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/RangedBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/RangedBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.36
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/RangedBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "EXP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/RangedBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.73
+
+[node name="Label2" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/RangedBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.45
+theme_override_font_sizes/font_size = 13
+text = "Skill Points"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/RangedBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+theme_override_font_sizes/font_size = 21
+text = "0
+"
+
+[node name="MagicBox" type="PanelContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Magic
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+theme_override_constants/h_separation = 17
+theme_override_constants/v_separation = 30
+columns = 4
+
+[node name="Button" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+disabled = true
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Magic Knowledge
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button2" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+disabled = true
+
+[node name="Label2" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button3" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label3" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Magic Proficiency"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button4" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label4" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button5" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label5" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Magic Defense"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button6" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label6" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.36
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "EXP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.73
+
+[node name="Label2" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.45
+theme_override_font_sizes/font_size = 13
+text = "Skill Points"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/MagicBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+theme_override_font_sizes/font_size = 21
+text = "0
+"
+
+[node name="AgilityBox" type="PanelContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/AgilityBox"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/AgilityBox/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/AgilityBox/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/AgilityBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Agility
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/AgilityBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+theme_override_constants/h_separation = 17
+theme_override_constants/v_separation = 30
+columns = 4
+
+[node name="Button" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/AgilityBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+disabled = true
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/AgilityBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Evasion
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button2" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/AgilityBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+disabled = true
+
+[node name="Label2" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/AgilityBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button3" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/AgilityBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label3" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/AgilityBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Crtical
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button4" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/AgilityBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label4" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/AgilityBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/AgilityBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.36
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/AgilityBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "EXP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/AgilityBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.73
+
+[node name="Label2" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/AgilityBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.45
+theme_override_font_sizes/font_size = 13
+text = "Skill Points"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/CombatContainer/HBoxContainer/AgilityBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+theme_override_font_sizes/font_size = 21
+text = "0
+"
+
+[node name="Label2" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Skills"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SkillsContainer" type="PanelContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ArtisanBox" type="PanelContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Artisan
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+theme_override_constants/h_separation = 17
+theme_override_constants/v_separation = 30
+columns = 4
+
+[node name="Button" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+disabled = true
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Smithing
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button2" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+disabled = true
+
+[node name="Label2" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button3" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label3" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Fletching
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button4" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label4" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button5" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label5" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Crafting
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button6" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label6" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.36
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "EXP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.73
+
+[node name="Label2" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.45
+theme_override_font_sizes/font_size = 13
+text = "Skill Points"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArtisanBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+theme_override_font_sizes/font_size = 21
+text = "0
+"
+
+[node name="SustenanceBox" type="PanelContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Sustenance
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+theme_override_constants/h_separation = 17
+theme_override_constants/v_separation = 30
+columns = 4
+
+[node name="Button" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+disabled = true
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Cooking
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button2" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+disabled = true
+
+[node name="Label2" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button3" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label3" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Fishing
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button4" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label4" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button5" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label5" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Agriculture
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button6" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label6" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.36
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "EXP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.73
+
+[node name="Label2" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.45
+theme_override_font_sizes/font_size = 13
+text = "Skill Points"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/SustenanceBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+theme_override_font_sizes/font_size = 21
+text = "0
+"
+
+[node name="ArcaneProficiencyBox" type="PanelContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArcaneProficiencyBox"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArcaneProficiencyBox/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArcaneProficiencyBox/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArcaneProficiencyBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Arcane Proficiency
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArcaneProficiencyBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+theme_override_constants/h_separation = 17
+theme_override_constants/v_separation = 30
+columns = 4
+
+[node name="Button" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArcaneProficiencyBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+disabled = true
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArcaneProficiencyBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Apothecary
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button2" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArcaneProficiencyBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+disabled = true
+
+[node name="Label2" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArcaneProficiencyBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button3" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArcaneProficiencyBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label3" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArcaneProficiencyBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Enchanting
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button4" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArcaneProficiencyBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label4" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArcaneProficiencyBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArcaneProficiencyBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.36
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArcaneProficiencyBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "EXP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArcaneProficiencyBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.73
+
+[node name="Label2" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArcaneProficiencyBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.45
+theme_override_font_sizes/font_size = 13
+text = "Skill Points"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/ArcaneProficiencyBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+theme_override_font_sizes/font_size = 21
+text = "0
+"
+
+[node name="VitalsBox" type="PanelContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Vitals
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+theme_override_constants/h_separation = 17
+theme_override_constants/v_separation = 30
+columns = 4
+
+[node name="Button" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+disabled = true
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Health"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button2" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+disabled = true
+
+[node name="Label2" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button3" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label3" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Stamina"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button4" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label4" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button5" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label5" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Mana
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button6" type="Button" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+
+[node name="Label6" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Lvl
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.36
+
+[node name="Label2" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 13
+text = "Skill Points"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="TabContainer/Attributes/AttributesInterface/MarginContainer/VBoxContainer/SkillsContainer/HBoxContainer/VitalsBox/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.38
+theme_override_font_sizes/font_size = 21
+text = "0
+"
